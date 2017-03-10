@@ -7,9 +7,10 @@ from .base import Base
 
 class GtagsBase(Base):
 
-    def exec_global(self, search_args):
+    def exec_global(self, search_args, context):
         command = ['global', '-q'] + search_args
         global_proc = subprocess.Popen(command,
+                                       cwd=context['path'],
                                        universal_newlines=True,
                                        stdout=subprocess.PIPE,
                                        stderr=subprocess.PIPE)
@@ -59,7 +60,7 @@ class TagsBase(GtagsBase):
 
     def gather_candidates(self, context):
         word = self.get_search_word(context)
-        tags = self.exec_global(self.get_search_flags() + [word])
+        tags = self.exec_global(self.get_search_flags() + [word], context)
         candidates = self._convert_to_candidates(tags)
         return candidates
 

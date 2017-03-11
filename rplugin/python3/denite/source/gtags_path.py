@@ -13,7 +13,7 @@ class Source(GtagsBase):
         return ['-P']
 
     def gather_candidates(self, context):
-        tags = self.exec_global(self.get_search_flags())
+        tags = self.exec_global(self.get_search_flags(), context)
         candidates = self._convert_to_candidates(tags)
         return candidates
 

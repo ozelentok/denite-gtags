@@ -1,4 +1,8 @@
-from .gtags_def import GtagsBase
+import os
+import sys
+
+sys.path.insert(1, os.path.dirname(__file__))
+from denite_gtags import GtagsBase # pylint: disable=locally-disabled, wrong-import-position
 
 class Source(GtagsBase):
 

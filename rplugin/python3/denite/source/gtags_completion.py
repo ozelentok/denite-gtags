@@ -23,4 +23,4 @@ class Source(GtagsBase):
 
     @classmethod
     def _convert_to_candidates(cls, tags):
-        return [{'word': t, 'action__command': 'Denite gtags_grep:{}'.format(t)} for t in tags]
+        return [{'word': t, 'action__command': 'Denite gtags_ref:{}'.format(t)} for t in tags]

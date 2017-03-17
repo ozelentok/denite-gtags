@@ -6,6 +6,8 @@ from denite_gtags import GtagsBase # pylint: disable=locally-disabled, wrong-imp
 
 class Source(GtagsBase):
 
+    _ACTION_COMMAND_TEMPLATE = 'Denite -mode=normal gtags_def:{0} gtags_ref:{0}'
+
     def __init__(self, vim):
         super().__init__(vim)
 
@@ -23,4 +25,4 @@ class Source(GtagsBase):
 
     @classmethod
     def _convert_to_candidates(cls, tags):
-        return [{'word': t, 'action__command': 'Denite -mode=normal gtags_ref:{}'.format(t)} for t in tags]
+        return [{'word': t, 'action__command': cls._ACTION_COMMAND_TEMPLATE.format(t)} for t in tags]

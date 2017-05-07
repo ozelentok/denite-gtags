@@ -17,6 +17,7 @@ denite-gtags implements the following sources for denite
 
 - `gtags_def` - Definition of tag
 - `gtags_ref` - References to tag
+- `gtags_context` - Definition/References to tag (based on current tag context)
 - `gtags_grep` - Grep search of tag
 - `gtags_completion` - List all tags
 - `gtags_file` - List all tags in file - (default is current file)
@@ -25,6 +26,7 @@ denite-gtags implements the following sources for denite
 ## Key Mapping ##
 Map commands for easier usage
 ```vim
+nnoremap <leader>a :DeniteCursorWord -buffer-name=gtags_context gtags_context<cr>
 nnoremap <leader>d :DeniteCursorWord -buffer-name=gtags_def gtags_def<cr>
 nnoremap <leader>r :DeniteCursorWord -buffer-name=gtags_ref gtags_ref<cr>
 nnoremap <leader>g :DeniteCursorWord -buffer-name=gtags_grep gtags_grep<cr>

@@ -50,4 +50,3 @@ class GtagsCompletionKind(object):
         for target in context['targets']:
             sources = sources_format.format(target['word'])
             self.vim.command(denite_cmd_prefix + sources)
-

@@ -4,7 +4,7 @@ from denite_gtags import GtagsBase # pylint: disable=locally-disabled, wrong-imp
 
 class TagsBase(GtagsBase):
 
-    TAG_PATTERN = re.compile('(.*)\t(\\d+)\t(.*)')
+    TAG_PATTERN = re.compile('([^\t]+)\t(\\d+)\t(.*)')
 
     def __init__(self, vim):
         super().__init__(vim)

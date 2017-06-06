@@ -34,9 +34,10 @@ nnoremap <leader>t :Denite -buffer-name=gtags_completion gtags_completion<cr>
 nnoremap <leader>f :Denite -buffer-name=gtags_file gtags_file<cr>
 nnoremap <leader>p :Denite -buffer-name=gtags_path gtags_path<cr>
 ```
+
 ### Examples ###
 
-To show tag definition, move the cursor to the tag, press `<leader>d` or execute the following command:
+To jump to a tag definition, move the cursor to the tag, press `<leader>d` or execute the following command:
 ```vim
 :DeniteCursorWord gtags_def
 ```

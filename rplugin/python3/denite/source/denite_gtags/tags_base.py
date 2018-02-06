@@ -1,6 +1,9 @@
 import re
 from abc import abstractmethod
-from denite_gtags import GtagsBase # pylint: disable=locally-disabled, wrong-import-position
+
+from denite.source.base import Base  # pylint: disable=locally-disabled, import-error
+from denite_gtags import GtagsBase  # pylint: disable=locally-disabled, wrong-import-position
+
 
 class TagsBase(GtagsBase):
 
@@ -27,7 +30,7 @@ class TagsBase(GtagsBase):
         candidates = []
         for tag in tags:
             path, line, text = cls._parse_tag(tag)
-            col = text.find(text) -1
+            col = text.find(text) - 1
             candidates.append({
                 'word': tag,
                 'action__path': path,
@@ -41,3 +44,7 @@ class TagsBase(GtagsBase):
     def _parse_tag(cls, tag):
         match = cls.TAG_PATTERN.match(tag)
         return match.groups()
+
+
+class Source(Base):
+    pass

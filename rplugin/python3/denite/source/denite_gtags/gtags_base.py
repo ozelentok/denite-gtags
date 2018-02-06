@@ -1,6 +1,7 @@
 import subprocess
-from denite.source.base import Base # pylint: disable=locally-disabled, import-error
-import denite.util # pylint: disable=locally-disabled, import-error
+from denite.source.base import Base  # pylint: disable=locally-disabled, import-error
+import denite.util  # pylint: disable=locally-disabled, import-error
+
 
 class GtagsBase(Base):
 
@@ -38,3 +39,7 @@ class GtagsBase(Base):
         else:
             error_message = '[denite-gtags] Error: global command failed\n{}'.format(err_output)
         denite.util.error(self.vim, error_message)
+
+
+class Source(Base):
+    pass

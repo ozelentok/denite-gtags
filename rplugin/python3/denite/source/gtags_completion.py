@@ -44,8 +44,8 @@ class GtagsCompletionKind(object):
 
     def _action(self, context, sources_format):
         denite_cmd_prefix = 'Denite -mode=normal '
-        if context['immediately']:
-            denite_cmd_prefix += '-immediately '
+        if context['immediately_1']:
+            denite_cmd_prefix += '-immediately-1 '
 
         for target in context['targets']:
             sources = sources_format.format(target['word'])

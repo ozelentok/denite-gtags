@@ -16,7 +16,7 @@ class Source(TagsBase):
         context['__filename'] = self.vim.current.buffer.name
 
     def get_search_flags(self):
-        return ['-f', '--result=ctags-mod']
+        return [['-f', '--result=ctags-mod']]
 
     def get_search_word(self, context):
         return context['__filename']

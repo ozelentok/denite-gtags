@@ -6,20 +6,21 @@ import denite.util  # pylint: disable=locally-disabled, import-error
 
 class GtagsBase(Base):
     def gather_candidates(self, context):
-        search_flags = self.get_search_flags()
         word = self._get_search_word(context)
 
-        if word:
-            search_flags += ['--', word]
+        candidates = []
+        for search_flags in self.get_search_flags():
+            if word:
+                search_flags += ['--', word]
 
-        tags = self._exec_global(search_flags, context)
-        candidates = self.convert_to_candidates(tags)
+            tags = self._exec_global(search_flags, context)
+            candidates += self.convert_to_candidates(tags)
 
         return candidates
 
     @abstractmethod
     def get_search_flags(self):
-        return []
+        return [[]]
 
     @abstractmethod
     def convert_to_candidates(self):

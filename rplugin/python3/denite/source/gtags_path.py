@@ -14,7 +14,7 @@ class Source(GtagsBase):
 
     @classmethod
     def get_search_flags(cls):
-        return ['-P']
+        return [['-P']]
 
     @classmethod
     def convert_to_candidates(cls, tags):

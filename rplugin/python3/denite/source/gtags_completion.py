@@ -15,13 +15,8 @@ class Source(GtagsBase):
     def get_search_flags(cls):
         return ['-c']
 
-    def gather_candidates(self, context):
-        tags = self.exec_global(self.get_search_flags(), context)
-        candidates = self._convert_to_candidates(tags)
-        return candidates
-
     @classmethod
-    def _convert_to_candidates(cls, tags):
+    def convert_to_candidates(cls, tags):
         return [{'word': t} for t in tags]
 
 

@@ -1,11 +1,38 @@
 import subprocess
+from abc import abstractmethod
 from denite.source.base import Base  # pylint: disable=locally-disabled, import-error
 import denite.util  # pylint: disable=locally-disabled, import-error
 
 
 class GtagsBase(Base):
+    def gather_candidates(self, context):
+        search_flags = self.get_search_flags()
+        word = self._get_search_word(context)
 
-    def exec_global(self, search_args, context):
+        if word:
+            search_flags += ['--', word]
+
+        tags = self._exec_global(search_flags, context)
+        candidates = self.convert_to_candidates(tags)
+
+        return candidates
+
+    @abstractmethod
+    def get_search_flags(self):
+        return []
+
+    @abstractmethod
+    def convert_to_candidates(self):
+        raise NotImplementedError()
+
+    def _get_search_word(self, context):
+        args_count = len(context['args'])
+        if args_count > 0:
+            return context['args'][0]
+
+        return context['input']
+
+    def _exec_global(self, search_args, context):
         command = ['global', '-q'] + search_args
         global_proc = subprocess.Popen(command,
                                        cwd=context['path'],

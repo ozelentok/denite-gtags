@@ -9,24 +9,8 @@ class TagsBase(GtagsBase):
 
     TAG_PATTERN = re.compile('([^\t]+)\t(\\d+)\t(.*)')
 
-    @abstractmethod
-    def get_search_flags(self):
-        return []
-
-    def get_search_word(self, context):
-        args_count = len(context['args'])
-        if args_count > 0:
-            return context['args'][0]
-        return context['input']
-
-    def gather_candidates(self, context):
-        word = self.get_search_word(context)
-        tags = self.exec_global(self.get_search_flags() + ['--', word], context)
-        candidates = self._convert_to_candidates(tags)
-        return candidates
-
     @classmethod
-    def _convert_to_candidates(cls, tags):
+    def convert_to_candidates(cls, tags):
         candidates = []
         for tag in tags:
             path, line, text = cls._parse_tag(tag)

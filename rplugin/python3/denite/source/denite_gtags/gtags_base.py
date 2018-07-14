@@ -20,12 +20,12 @@ class GtagsBase(Base):
         global_exitcode = global_proc.returncode
 
         if global_exitcode != 0:
-            self.print_global_error(global_exitcode, err_output)
+            self._print_global_error(global_exitcode, err_output)
             return []
 
         return [t for t in output.split('\n') if len(t) > 0]
 
-    def print_global_error(self, global_exitcode, err_output):
+    def _print_global_error(self, global_exitcode, err_output):
         if global_exitcode == 1:
             error_message = '[denite-gtags] Error: file does not exists'
         elif global_exitcode == 2:

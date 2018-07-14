@@ -15,4 +15,4 @@ class Source(TagsBase):
     def get_search_flags(self):
         current_line = self.vim.current.window.cursor[0]
         file_name = self.vim.current.window.buffer.name
-        return ['--from-here', '{}:{}'.format(current_line, file_name), '--result=ctags-mod']
+        return [['--from-here', '{}:{}'.format(current_line, file_name), '--result=ctags-mod']]

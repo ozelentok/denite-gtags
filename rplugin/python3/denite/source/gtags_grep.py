@@ -13,4 +13,4 @@ class Source(TagsBase):
         self.kind = 'file'
 
     def get_search_flags(self):
-        return ['-g', '--result=ctags-mod']
+        return [['-g', '--result=ctags-mod']]

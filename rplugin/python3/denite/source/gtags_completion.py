@@ -13,7 +13,8 @@ class Source(GtagsBase):
 
     @classmethod
     def get_search_flags(cls):
-        return [['-c']]
+        return [ ['-c'],        # regular symbols
+                 ['-s', '-c'] ] # symbols without definitions (only references)
 
     @classmethod
     def convert_to_candidates(cls, tags):

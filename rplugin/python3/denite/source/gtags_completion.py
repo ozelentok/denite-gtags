@@ -2,7 +2,8 @@ import os
 import sys
 
 sys.path.insert(1, os.path.dirname(__file__))
-from denite_gtags import GtagsBase # pylint: disable=locally-disabled, wrong-import-position
+from denite_gtags import GtagsBase  # pylint: disable=locally-disabled, wrong-import-position
+
 
 class Source(GtagsBase):
     def __init__(self, vim):
@@ -13,8 +14,10 @@ class Source(GtagsBase):
 
     @classmethod
     def get_search_flags(cls):
-        return [ ['-c'],        # regular symbols
-                 ['-s', '-c'] ] # symbols without definitions (only references)
+        return [
+            ['-c'],  # regular symbols
+            ['-s', '-c']
+        ]  # symbols without definitions (only references)
 
     @classmethod
     def convert_to_candidates(cls, tags):

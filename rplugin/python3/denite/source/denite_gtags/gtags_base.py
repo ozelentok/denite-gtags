@@ -35,11 +35,12 @@ class GtagsBase(Base):
 
     def _exec_global(self, search_args, context):
         command = ['global', '-q'] + search_args
-        global_proc = subprocess.Popen(command,
-                                       cwd=context['path'],
-                                       universal_newlines=True,
-                                       stdout=subprocess.PIPE,
-                                       stderr=subprocess.PIPE)
+        global_proc = subprocess.Popen(
+            command,
+            cwd=context['path'],
+            universal_newlines=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE)
         try:
             output, err_output = global_proc.communicate(timeout=15)
         except subprocess.TimeoutExpired:
@@ -55,17 +56,20 @@ class GtagsBase(Base):
 
     def _print_global_error(self, global_exitcode, err_output):
         if global_exitcode == 1:
-            error_message = '[denite-gtags] Error: file does not exists'
+            error_message = '[denite-gtags] Error: File does not exists'
         elif global_exitcode == 2:
-            error_message = '[denite-gtags] Error: invalid arguments\n{}'.format(err_output)
+            error_message = '[denite-gtags] Error: Invalid arguments\n{}'.format(
+                err_output)
         elif global_exitcode == 3:
             error_message = '[denite-gtags] Error: GTAGS not found'
         elif global_exitcode == 126:
-            error_message = '[denite-gtags] Error: permission denied\n{}'.format(err_output)
+            error_message = '[denite-gtags] Error: Permission denied\n{}'.format(
+                err_output)
         elif global_exitcode == 127:
             error_message = '[denite-gtags] Error: \'global\' command not found\n{}'
         else:
-            error_message = '[denite-gtags] Error: global command failed\n{}'.format(err_output)
+            error_message = '[denite-gtags] Error: global command failed\n{}'.format(
+                err_output)
         denite.util.error(self.vim, error_message)
 
 

@@ -18,5 +18,5 @@ class Source(TagsBase):
     def get_search_flags(self):
         return [['-f', '--result=ctags-mod']]
 
-    def get_search_word(self, context):
+    def _get_search_word(self, context):
         return context['__filename']

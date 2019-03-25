@@ -71,7 +71,3 @@ class GtagsBase(Base):
             error_message = '[denite-gtags] Error: global command failed\n{}'.format(
                 err_output)
         denite.util.error(self.vim, error_message)
-
-
-class Source(Base):
-    pass

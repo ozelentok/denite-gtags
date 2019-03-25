@@ -28,7 +28,3 @@ class TagsBase(GtagsBase):
     def _parse_tag(cls, tag):
         match = cls.TAG_PATTERN.match(tag)
         return match.groups()
-
-
-class Source(Base):
-    pass

@@ -21,6 +21,7 @@ denite-gtags implements the following sources for denite
 - `gtags_grep` - Grep search of tag
 - `gtags_completion` - List all tags
 - `gtags_file` - List all tags in file - (default is current file)
+- `gtags_files` - List all tags under current directory
 - `gtags_path` - List all paths in GTAGS file
 
 ## Key Mapping ##
@@ -32,6 +33,7 @@ nnoremap <leader>r :DeniteCursorWord -buffer-name=gtags_ref gtags_ref<cr>
 nnoremap <leader>g :DeniteCursorWord -buffer-name=gtags_grep gtags_grep<cr>
 nnoremap <leader>t :Denite -buffer-name=gtags_completion gtags_completion<cr>
 nnoremap <leader>f :Denite -buffer-name=gtags_file gtags_file<cr>
+nnoremap <leader>F :Denite -buffer-name=gtags_files gtags_files<cr>
 nnoremap <leader>p :Denite -buffer-name=gtags_path gtags_path<cr>
 ```
 

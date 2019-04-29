@@ -33,41 +33,39 @@ class GtagsBase(Base):
 
         return context['input']
 
-    def _exec_global(self, search_args, context):
+    def _exec_global(self, search_args, context, input=None):
         command = ['global', '-q'] + search_args
         global_proc = subprocess.Popen(
             command,
             cwd=context['path'],
             universal_newlines=True,
+            stdin=subprocess.PIPE if input else None,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
         try:
-            output, err_output = global_proc.communicate(timeout=15)
+            output, error = global_proc.communicate(input=input, timeout=15)
         except subprocess.TimeoutExpired:
             global_proc.kill()
-            output, err_output = global_proc.communicate()
+            output, error = global_proc.communicate()
         global_exitcode = global_proc.returncode
 
         if global_exitcode != 0:
-            self._print_global_error(global_exitcode, err_output)
+            self._print_global_error(global_exitcode, error)
             return []
 
         return [t for t in output.split('\n') if len(t) > 0]
 
-    def _print_global_error(self, global_exitcode, err_output):
+    def _print_global_error(self, global_exitcode, error):
         if global_exitcode == 1:
-            error_message = '[denite-gtags] Error: File does not exists'
+            message = '[denite-gtags] Error: File does not exists'
         elif global_exitcode == 2:
-            error_message = '[denite-gtags] Error: Invalid arguments\n{}'.format(
-                err_output)
+            message = '[denite-gtags] Error: Invalid arguments\n{error}'
         elif global_exitcode == 3:
-            error_message = '[denite-gtags] Error: GTAGS not found'
+            message = '[denite-gtags] Error: GTAGS not found'
         elif global_exitcode == 126:
-            error_message = '[denite-gtags] Error: Permission denied\n{}'.format(
-                err_output)
+            message = f'[denite-gtags] Error: Permission denied\n{error}'
         elif global_exitcode == 127:
-            error_message = '[denite-gtags] Error: \'global\' command not found\n{}'
+            message = '[denite-gtags] Error: \'global\' command not found'
         else:
-            error_message = '[denite-gtags] Error: global command failed\n{}'.format(
-                err_output)
-        denite.util.error(self.vim, error_message)
+            message = '[denite-gtags] Error: global command failed\n{error}'
+        denite.util.error(self.vim, message)

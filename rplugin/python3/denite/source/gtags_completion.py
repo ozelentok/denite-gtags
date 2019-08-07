@@ -42,7 +42,7 @@ class GtagsCompletionKind(object):
         self._action(context, 'gtags_def:{0} gtags_ref:{0}')
 
     def _action(self, context, sources_format):
-        denite_cmd_prefix = 'Denite -start-filter '
+        denite_cmd_prefix = 'Denite '
         if context['immediately_1']:
             denite_cmd_prefix += '-immediately-1 '
 

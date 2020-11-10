@@ -2,6 +2,7 @@ import subprocess
 from abc import abstractmethod
 from denite.source.base import Base  # pylint: disable=locally-disabled, import-error
 import denite.util  # pylint: disable=locally-disabled, import-error
+import os
 
 
 class GtagsBase(Base):
@@ -35,13 +36,19 @@ class GtagsBase(Base):
 
     def _exec_global(self, search_args, context, input=None):
         command = ['global', '-q'] + search_args
+        osenv = os.environ
+        if 'path' in context:
+            cwd = os.getcwd()
+            dbpath = context['path']
+            osenv.update({'GTAGSROOT': cwd, 'GTAGSDBPATH' : dbpath})
         global_proc = subprocess.Popen(
             command,
             cwd=context['path'],
             universal_newlines=True,
             stdin=subprocess.PIPE if input else None,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE)
+            stderr=subprocess.PIPE,
+            env=osenv)
         try:
             output, error = global_proc.communicate(input=input, timeout=15)
         except subprocess.TimeoutExpired:

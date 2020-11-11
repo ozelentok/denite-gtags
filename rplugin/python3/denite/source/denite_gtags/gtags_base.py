@@ -37,10 +37,14 @@ class GtagsBase(Base):
     def _exec_global(self, search_args, context, input=None):
         command = ['global', '-q'] + search_args
         osenv = os.environ
-        if 'path' in context:
-            cwd = os.getcwd()
-            dbpath = context['path']
-            osenv.update({'GTAGSROOT': cwd, 'GTAGSDBPATH' : dbpath})
+        cwd = os.getcwd()
+        if os.path.normpath(cwd) != os.path.normpath(context['path']):
+            osenv.update({'GTAGSROOT': cwd, 'GTAGSDBPATH' : context['path']})
+        else:
+            if 'GTAGSROOT' in osenv:
+                osenv.pop('GTAGSROOT')
+            if 'GTAGSDBPATH' in osenv:
+                osenv.pop('GTAGSDBPATH')
         global_proc = subprocess.Popen(
             command,
             cwd=context['path'],

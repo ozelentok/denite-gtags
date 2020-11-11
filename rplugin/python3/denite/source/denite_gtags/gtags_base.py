@@ -1,3 +1,4 @@
+import os
 import subprocess
 from abc import abstractmethod
 from denite.source.base import Base  # pylint: disable=locally-disabled, import-error
@@ -33,6 +34,17 @@ class GtagsBase(Base):
 
         return context['input']
 
+    def _create_global_env(self):
+        buffer_vars = self.vim.current.buffer.vars
+        gtags_root = buffer_vars.get('denite_gtags_root', None)
+        gtags_db_path = buffer_vars.get('denite_gtags_db_path', None)
+        global_env = os.environ.copy()
+        if gtags_root:
+            global_env['GTAGSROOT'] = gtags_root
+        if gtags_db_path:
+            global_env['GTAGSDBPATH'] = gtags_db_path
+        return global_env
+
     def _exec_global(self, search_args, context, input=None):
         command = ['global', '-q'] + search_args
         global_proc = subprocess.Popen(
@@ -41,7 +53,8 @@ class GtagsBase(Base):
             universal_newlines=True,
             stdin=subprocess.PIPE if input else None,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE)
+            stderr=subprocess.PIPE,
+            env=self._create_global_env())
         try:
             output, error = global_proc.communicate(input=input, timeout=15)
         except subprocess.TimeoutExpired:

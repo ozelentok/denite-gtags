@@ -1,7 +1,7 @@
 # denite-gtags #
 denite-gtags is a denite.nvim source for GNU Global
 
-## Requirments ##
+## Requirements ##
 - GNU Global
 - denite.nvim
 
@@ -35,6 +35,13 @@ nnoremap <leader>t :Denite -buffer-name=gtags_completion gtags_completion<cr>
 nnoremap <leader>f :Denite -buffer-name=gtags_file gtags_file<cr>
 nnoremap <leader>F :Denite -buffer-name=gtags_files gtags_files<cr>
 nnoremap <leader>p :Denite -buffer-name=gtags_path gtags_path<cr>
+```
+
+## Dynamic Configuration ##
+To set `GTAGSROOT` and `GTAGSDBPATH` dynamically, set the following variables per buffer
+```vim
+let b:denite_gtags_root='/path/to/project'
+let b:denite_gtags_db_path='/path/to/gtags-db'
 ```
 
 ### Examples ###

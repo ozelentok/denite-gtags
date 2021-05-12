@@ -29,6 +29,6 @@ class Source(TagsBase):
         candidates = []
         for search_flags in self.get_search_flags():
             tags = self._exec_global(search_flags, context, file_paths)
-            candidates += self.convert_to_candidates(tags)
+            candidates += self.convert_to_candidates(context, tags)
 
         return candidates

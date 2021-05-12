@@ -17,5 +17,5 @@ class Source(GtagsBase):
         return [['-P']]
 
     @classmethod
-    def convert_to_candidates(cls, tags):
+    def convert_to_candidates(cls, context, tags):
         return [{'word': t, 'action__path': t} for t in tags]

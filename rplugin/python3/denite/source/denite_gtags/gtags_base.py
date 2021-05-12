@@ -6,6 +6,16 @@ import denite.util  # pylint: disable=locally-disabled, import-error
 
 
 class GtagsBase(Base):
+    def highlight(self):
+        self.vim.command(f"highlight default link {self.syntax_name}_Position Comment")
+
+    def define_syntax(self):
+        self.vim.command(
+            f"syntax match {self.syntax_name}_Position /"
+            r" \[.\{-}\]"
+            f"/ contained containedin={self.syntax_name}"
+        )
+
     def gather_candidates(self, context):
         word = self._get_search_word(context)
 
@@ -15,7 +25,9 @@ class GtagsBase(Base):
                 search_flags += ['--', word]
 
             tags = self._exec_global(search_flags, context)
-            candidates += self.convert_to_candidates(tags)
+            candidates += self.convert_to_candidates(context, tags)
+
+        self.print_message(context, candidates)
 
         return candidates
 
